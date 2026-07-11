@@ -1,0 +1,108 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-200);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  color: var(--color-text);
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(111, 160, 110, 0.12), transparent 24%),
+    radial-gradient(circle at 82% 18%, rgba(37, 244, 238, 0.05), transparent 18%),
+    radial-gradient(circle at 76% 76%, rgba(254, 44, 85, 0.04), transparent 16%),
+    linear-gradient(
+      180deg,
+      var(--color-background) 0%,
+      var(--color-background-forest) 46%,
+      var(--color-background-deep) 100%
+    );
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h1 {
+  font-size: clamp(var(--font-size-600), 5vw, var(--font-size-800));
+}
+
+h2 {
+  font-size: clamp(var(--font-size-500), 4vw, var(--font-size-700));
+}
+
+h3 {
+  font-size: clamp(var(--font-size-400), 3vw, var(--font-size-600));
+}
+
+p {
+  color: var(--color-text);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+small,
+.caption {
+  font-size: var(--font-size-100);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target-min);
+  color: var(--color-primary-light);
+  font-size: var(--font-size-100);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+blockquote {
+  margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+::selection {
+  color: var(--color-bg);
+  background: rgba(111, 160, 110, 0.9);
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 1000;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-button);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: var(--color-bg);
+  transform: translateY(-200%);
+  transition: transform var(--transition-fast);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
