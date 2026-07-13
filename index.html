@@ -41,7 +41,67 @@
     <link rel="stylesheet" href="./css/responsive.css" />
 
     <!-- Pixel and analytics hooks: replace placeholder IDs in a real deployment. -->
-    <!-- TikTok Pixel hook -->
+    <!-- TikTok Pixel Code Start -->
+    <script>
+      !(function (w, d, t) {
+        w.TiktokAnalyticsObject = t;
+        var ttq = (w[t] = w[t] || []);
+        ttq.methods = [
+          "page",
+          "track",
+          "identify",
+          "instances",
+          "debug",
+          "on",
+          "off",
+          "once",
+          "ready",
+          "alias",
+          "group",
+          "enableCookie",
+          "disableCookie",
+          "holdConsent",
+          "revokeConsent",
+          "grantConsent",
+        ];
+        ttq.setAndDefer = function (target, method) {
+          target[method] = function () {
+            target.push([method].concat(Array.prototype.slice.call(arguments, 0)));
+          };
+        };
+        for (var i = 0; i < ttq.methods.length; i += 1) {
+          ttq.setAndDefer(ttq, ttq.methods[i]);
+        }
+        ttq.instance = function (id) {
+          var instance = ttq._i[id] || [];
+          for (var j = 0; j < ttq.methods.length; j += 1) {
+            ttq.setAndDefer(instance, ttq.methods[j]);
+          }
+          return instance;
+        };
+        ttq.load = function (id, options) {
+          var url = "https://analytics.tiktok.com/i18n/pixel/events.js";
+          var partner = options && options.partner;
+          ttq._i = ttq._i || {};
+          ttq._i[id] = [];
+          ttq._i[id]._u = url;
+          ttq._t = ttq._t || {};
+          ttq._t[id] = +new Date();
+          ttq._o = ttq._o || {};
+          ttq._o[id] = options || {};
+          options = document.createElement("script");
+          options.type = "text/javascript";
+          options.async = true;
+          options.src = url + "?sdkid=" + id + "&lib=" + t;
+          id = document.getElementsByTagName("script")[0];
+          id.parentNode.insertBefore(options, id);
+        };
+
+        ttq.load("D99GTRBC77U7PB56OITG");
+        ttq.page();
+      })(window, document, "ttq");
+    </script>
+    <!-- TikTok Pixel Code End -->
     <!-- Google Analytics 4 hook -->
     <!-- Google Tag Manager hook -->
     <!-- Meta Pixel hook -->
@@ -144,16 +204,14 @@
 
                     <div class="phone-video">
                       <!-- Replace Hero Video -->
-                      <div class="phone-video__overlay">
-                        <button
-                          class="video-play"
-                          type="button"
-                          aria-label="Play preview video"
-                        >
-                          <span aria-hidden="true"></span>
-                        </button>
-                        <p>Video lifestyle minh họa</p>
-                      </div>
+                      <iframe
+                        class="phone-video__frame"
+                        src="https://www.youtube.com/embed/EMHv11ZoRII?rel=0&modestbranding=1"
+                        title="SADU Hero Video"
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                      ></iframe>
                     </div>
 
                     <div class="phone-metrics">
@@ -583,48 +641,63 @@
 
             <div class="content-grid content-grid-3">
               <article class="card proof-card">
-                <!-- Replace Creator Video -->
-                <div class="proof-video">Video minh họa</div>
+                <!-- Replace Creator Image -->
+                <div class="proof-video">
+                  <img
+                    src="./assets/images/creator-2.webp"
+                    alt="Creator thuong.19930"
+                    loading="lazy"
+                  />
+                </div>
                 <div class="proof-meta">
-                  <!-- Replace Creator Avatar -->
-                  <span class="proof-avatar" aria-hidden="true">A</span>
+                  <span class="proof-avatar" aria-hidden="true">S</span>
                   <div>
-                    <h3>Tên Creator</h3>
-                    <p class="caption">Doanh số placeholder</p>
+                    <h3>thuong.19930</h3>
+                    <p class="caption">140,9 triệu/tháng</p>
                   </div>
                 </div>
                 <blockquote class="proof-quote">
-                  "Quote placeholder cho nhận xét từ Creator."
+                  "Mình thích cách SADU làm việc rõ ràng và hỗ trợ rất sát. Nội dung vẫn giữ được chất riêng nhưng hiệu quả tốt hơn từng tháng."
                 </blockquote>
               </article>
               <article class="card proof-card">
-                <!-- Replace Creator Video -->
-                <div class="proof-video">Video minh họa</div>
+                <!-- Replace Creator Image -->
+                <div class="proof-video">
+                  <img
+                    src="./assets/images/creator-1.webp"
+                    alt="Creator suckhoetredepp"
+                    loading="lazy"
+                  />
+                </div>
                 <div class="proof-meta">
-                  <!-- Replace Creator Avatar -->
-                  <span class="proof-avatar" aria-hidden="true">B</span>
+                  <span class="proof-avatar" aria-hidden="true">T</span>
                   <div>
-                    <h3>Tên Creator</h3>
-                    <p class="caption">Doanh số placeholder</p>
+                    <h3>suckhoetredepp</h3>
+                    <p class="caption">80,3 triệu/tháng</p>
                   </div>
                 </div>
                 <blockquote class="proof-quote">
-                  "Quote placeholder cho case study hiệu quả."
+                  "Điểm mình thích nhất là được đồng hành từ lúc lên ý tưởng đến khi video có kết quả. Quy trình nhẹ nhàng mà vẫn rất chuyên nghiệp."
                 </blockquote>
               </article>
               <article class="card proof-card">
-                <!-- Replace Creator Video -->
-                <div class="proof-video">Video minh họa</div>
+                <!-- Replace Creator Image -->
+                <div class="proof-video">
+                  <img
+                    src="./assets/images/creator-3.webp"
+                    alt="Creator mythanh986"
+                    loading="lazy"
+                  />
+                </div>
                 <div class="proof-meta">
-                  <!-- Replace Creator Avatar -->
-                  <span class="proof-avatar" aria-hidden="true">C</span>
+                  <span class="proof-avatar" aria-hidden="true">M</span>
                   <div>
-                    <h3>Tên Creator</h3>
-                    <p class="caption">Doanh số placeholder</p>
+                    <h3>mythanh986</h3>
+                    <p class="caption">40,7 triệu/tháng</p>
                   </div>
                 </div>
                 <blockquote class="proof-quote">
-                  "Quote placeholder cho trải nghiệm hợp tác."
+                  "SADU cho mình cảm giác đang làm việc cùng một đội ngũ thật sự hiểu creator. Mọi thứ minh bạch, dễ làm và rất có động lực để đi lâu dài."
                 </blockquote>
               </article>
             </div>

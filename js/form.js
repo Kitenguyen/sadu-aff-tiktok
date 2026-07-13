@@ -135,6 +135,18 @@ function showFormStatus(form, message, state = "error") {
   statusNode.classList.toggle("is-success", state === "success");
 }
 
+function parseSubmissionResponse(text) {
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+
 function buildPayload(values) {
   return {
     ...values,
@@ -181,6 +193,7 @@ async function submitToGoogleAppsScript(values) {
     });
 
     const text = await response.text();
+    const payload = parseSubmissionResponse(text);
 
     if (!response.ok) {
       throw new Error(extractErrorMessage(text));
@@ -190,19 +203,23 @@ async function submitToGoogleAppsScript(values) {
       throw new Error(extractErrorMessage(text));
     }
 
+    if (!payload || payload.success !== true) {
+      throw new Error("Biểu mẫu chưa xác nhận đăng ký thành công. Vui lòng thử lại.");
+    }
+
     return;
   } catch (error) {
     // Local `file://` previews often hit a CORS wall when posting to Apps Script.
-    // In that case, send a fire-and-forget JSON body using a simple content type.
+    // Fallback to sendBeacon so the request can still be queued cross-origin.
     if (error instanceof TypeError) {
-      await fetch(endpoint, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8",
-        },
-        body: JSON.stringify(payload),
+      const beaconPayload = new Blob([JSON.stringify(payload)], {
+        type: "text/plain;charset=utf-8",
       });
+
+      if (!navigator.sendBeacon || !navigator.sendBeacon(endpoint, beaconPayload)) {
+        throw new Error("Không thể gửi đăng ký lúc này. Vui lòng thử lại sau.");
+      }
+
       return;
     }
 
@@ -235,6 +252,7 @@ export function setupRegistrationForm({ onSuccess }) {
       if (successMessage) {
         successMessage.hidden = true;
       }
+      form.classList.remove("is-submitted");
       showFormStatus(form, "");
       validateAndRender();
     }
@@ -245,6 +263,7 @@ export function setupRegistrationForm({ onSuccess }) {
       if (successMessage) {
         successMessage.hidden = true;
       }
+      form.classList.remove("is-submitted");
       showFormStatus(form, "");
       validateAndRender();
     }
@@ -268,6 +287,7 @@ export function setupRegistrationForm({ onSuccess }) {
       showFormStatus(form, "");
       setButtonLoading(submitButton, false);
       form.reset();
+      form.classList.add("is-submitted");
       Array.from(form.elements)
         .filter((field) => field.name)
         .forEach((field) => showFieldError(form, field.name, ""));
