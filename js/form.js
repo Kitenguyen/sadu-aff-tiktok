@@ -181,7 +181,7 @@ async function submitToGoogleAppsScript(values) {
     return;
   }
 
-  const payload = buildPayload(values);
+  const requestPayload = buildPayload(values);
 
   try {
     const response = await fetch(endpoint, {
@@ -189,11 +189,11 @@ async function submitToGoogleAppsScript(values) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(requestPayload),
     });
 
     const text = await response.text();
-    const payload = parseSubmissionResponse(text);
+    const responsePayload = parseSubmissionResponse(text);
 
     if (!response.ok) {
       throw new Error(extractErrorMessage(text));
@@ -203,7 +203,7 @@ async function submitToGoogleAppsScript(values) {
       throw new Error(extractErrorMessage(text));
     }
 
-    if (!payload || payload.success !== true) {
+    if (!responsePayload || responsePayload.success !== true) {
       throw new Error("Biểu mẫu chưa xác nhận đăng ký thành công. Vui lòng thử lại.");
     }
 
@@ -212,7 +212,7 @@ async function submitToGoogleAppsScript(values) {
     // Local `file://` previews often hit a CORS wall when posting to Apps Script.
     // Fallback to sendBeacon so the request can still be queued cross-origin.
     if (error instanceof TypeError) {
-      const beaconPayload = new Blob([JSON.stringify(payload)], {
+      const beaconPayload = new Blob([JSON.stringify(requestPayload)], {
         type: "text/plain;charset=utf-8",
       });
 
